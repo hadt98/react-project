@@ -1,13 +1,24 @@
-import logo from './logo.svg';
+import React, {useEffect} from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
-import Products from './components/products';
-
-import store from "./helpers/store"
+import LoginComponent from "./components/LoginComponent";
+import Logout from './components/LogoutComponent';
+import SignUpComponent from "./components/SignUpComponent";
 
 function App() {
+  const userReducer = useSelector(state => state.userReducer)
+
   return (
     <div className="App">
-      <Products store={store} />
+      <h1>Sign up form </h1>
+        {
+          !userReducer.loggedIn ? <h1>Sign Up or Login!</h1> : <h1>Welcome, {userReducer.user.username}</h1>
+        }
+        {userReducer.loggedIn  && <Logout/>}
+        <SignUpComponent/>
+        <LoginComponent/>
+        
+        
     </div>
   );
 }
